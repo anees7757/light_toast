@@ -1,3 +1,6 @@
+## [0.0.8]
+### Dependencies updated
+
 ## [0.0.7]
 ### No context support added
 

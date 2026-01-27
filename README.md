@@ -19,7 +19,7 @@
 
 ```yaml
 dependencies:
-  light_toast: ^0.0.7
+  light_toast: ^0.0.8
 ```
 
 2. **Import:** Add the import statement to your Dart files:
