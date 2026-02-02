@@ -28,8 +28,8 @@ import 'package:light_toast/light_toast.dart';
 
 ```dart
 MaterialApp(
-  navigatorKey: Toast.navigatorKey,
-  home: MyHomePage(),
+    navigatorKey: Toast.navigatorKey,
+    home: MyHomePage(),
 );
 ```
 
@@ -43,30 +43,30 @@ Toast.show('Hello, Flutter!');
 
 ```dart
 Toast.show(
-'Saved successfully!',
-backgroundColor: Colors.green,
-textColor: Colors.white,
-icon: Icons.check_circle,
-iconColor: Colors.white,
-showLeading: true,
-duration: Duration(seconds: 3),
+    'Saved successfully!',
+    backgroundColor: Colors.green,
+    textColor: Colors.white,
+    icon: Icons.check_circle,
+    iconColor: Colors.white,
+    showLeading: true,
+    duration: Duration(seconds: 3),
 );
 ```
 
 ### Toast with Image
 ```dart
 Toast.show(
-'Profile updated',
-image: 'assets/images/success.png',
-showLeading: true,
+    'Profile updated',
+    image: 'assets/images/success.png',
+    showLeading: true,
 );
 ```
 You can also use a **network image**:
 ```dart
 Toast.show(
-'New message received',
-image: 'https://example.com/icon.png',
-showLeading: true,
+    'New message received',
+    image: 'https://example.com/icon.png',
+    showLeading: true,
 );
 ```
 
