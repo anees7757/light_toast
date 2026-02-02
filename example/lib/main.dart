@@ -11,17 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: Toast.navigatorKey,
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Toast Example'),
-        ),
+        appBar: AppBar(title: const Text('Toast Example')),
         body: Center(
           child: ElevatedButton(
             onPressed: () {
-              Toast.show(
-                context: context,
-                'Hello, Flutter!',
-              );
+              Toast.show('Hello, Flutter!');
             },
             child: const Text('Show Toast'),
           ),

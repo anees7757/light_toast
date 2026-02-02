@@ -34,7 +34,7 @@ class ToastWidget extends StatelessWidget {
         child: Center(
           child: Container(
             padding:
-                const EdgeInsets.symmetric(horizontal: 18.0, vertical: 13.0),
+            const EdgeInsets.symmetric(horizontal: 18.0, vertical: 13.0),
             decoration: BoxDecoration(
               color: backgroundColor ?? const Color(0xff141510),
               borderRadius: BorderRadius.circular(borderRadius ?? 10.0),

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:light_toast/src/ui/toast_widget.dart';
 
@@ -8,7 +7,7 @@ abstract class Toast {
   /// Shows a toast message with customizable options.
   ///
   /// [message] The message to display in the toast.
-  /// [context] The build context.
+  /// [context] The build context (optional if navigatorKey is set).
   /// [backgroundColor] The background color of the toast.
   /// [textColor] The text color of the toast message.
   /// [fontSize] The font size of the toast message.
@@ -20,59 +19,70 @@ abstract class Toast {
   /// [duration] The duration for which the toast will be visible.
   static OverlayEntry? _overlayEntry;
   static bool _isVisible = false;
+  static final GlobalKey<NavigatorState> _navigatorKey =
+      GlobalKey<NavigatorState>();
 
-  static void show(String message,
-      {BuildContext? context,
-      Color backgroundColor = Colors.black87,
-      Color textColor = Colors.white,
-      double fontSize = 16.0,
-      double borderRadius = 10.0,
-      IconData? icon,
-      Color? iconColor,
-      String? image,
-      bool showLeading = false,
-      Duration duration = const Duration(seconds: 2)}) {
-    if (icon == null && showLeading && image == null) {
-      throw ArgumentError('SimpleToast: Cannot show icon when icon is null');
-    } else if (icon != null && !showLeading && image == null) {
-      throw ArgumentError(
-          'SimpleToast: Cannot show icon when showLeading is false');
-    } else if (icon != null && image != null && !showLeading) {
-      throw ArgumentError(
-          'SimpleToast: Cannot show both icon and image when showLeading is false');
-    } else if (icon != null && image != null && showLeading) {
-      throw ArgumentError('SimpleToast: Cannot show both icon and image');
-    } else {
-      if (!_isVisible) {
-        _overlayEntry = OverlayEntry(
-          builder: (BuildContext context) => ToastWidget(
-            message: message,
-            backgroundColor: backgroundColor,
-            textColor: textColor,
-            fontSize: fontSize,
-            borderRadius: borderRadius,
-            icon: showLeading ? icon : null,
-            iconColor: iconColor,
-            image: image,
-            showLeading: showLeading,
-          ),
-        );
+  /// Get the navigator key to be used in MaterialApp.
+  ///
+  /// Usage:
+  /// ```dart
+  /// MaterialApp(
+  ///   navigatorKey: Toast.navigatorKey,
+  ///   // ... rest of your app
+  /// )
+  /// ```
+  static GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
 
-        (context == null)
-            ? Overlay.of(Get.overlayContext!).insert(_overlayEntry!)
-            : Overlay.of(context).insert(_overlayEntry!);
-        _isVisible = true;
+  /// Shows a toast message with customizable options.
+  ///
+  /// [message] The message to display in the toast.
+  static void show(
+    String message, {
+    Color backgroundColor = Colors.black87,
+    Color textColor = Colors.white,
+    double fontSize = 16.0,
+    double borderRadius = 10.0,
+    IconData? icon,
+    Color? iconColor,
+    String? image,
+    bool showLeading = false,
+    Duration duration = const Duration(seconds: 2),
+  }) {
+    if (_isVisible) return;
 
-        Timer(duration, () {
-          hide();
-        });
-      }
+    final overlay = _navigatorKey.currentState?.overlay;
+
+    if (overlay == null) {
+      throw StateError(
+        'Toast error: Overlay not available. '
+        'Add Toast.navigatorKey to MaterialApp.',
+      );
     }
+
+    _overlayEntry = OverlayEntry(
+      builder: (_) => ToastWidget(
+        message: message,
+        backgroundColor: backgroundColor,
+        textColor: textColor,
+        fontSize: fontSize,
+        borderRadius: borderRadius,
+        icon: showLeading ? icon : null,
+        iconColor: iconColor,
+        image: image,
+        showLeading: showLeading,
+      ),
+    );
+
+    overlay.insert(_overlayEntry!);
+    _isVisible = true;
+
+    Timer(duration, hide);
   }
 
   static void hide() {
     if (_isVisible && _overlayEntry != null) {
       _overlayEntry!.remove();
+      _overlayEntry = null;
       _isVisible = false;
     }
   }
