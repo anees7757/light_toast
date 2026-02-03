@@ -1,4 +1,4 @@
-<img height="300" src="https://raw.githubusercontent.com/Anees7757/light_toast/master/assets/images/banner.png" alt=""/>
+<img src="https://raw.githubusercontent.com/Anees7757/light_toast/master/assets/images/banner.png" alt=""/>
 
 **Lightweight, customizable toast**
 
