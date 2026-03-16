@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:light_toast/src/constants/constants.dart';
 import 'package:light_toast/src/ui/toast_widget.dart';
 
 /// A lightweight Flutter package for displaying customizable toast messages.
@@ -17,6 +18,8 @@ abstract class Toast {
   /// [image] The image URL or asset path to display in the toast (optional).
   /// [showLeading] Whether to show the leading icon or image in the toast.
   /// [duration] The duration for which the toast will be visible.
+  /// [position] Where on screen the toast appears. Defaults to [ToastPosition.bottomCenter].
+  /// [direction] The text direction for the toast content. Defaults to [ToastDirection.ltr].
   static OverlayEntry? _overlayEntry;
   static bool _isVisible = false;
   static final GlobalKey<NavigatorState> _navigatorKey =
@@ -47,6 +50,8 @@ abstract class Toast {
     String? image,
     bool showLeading = false,
     Duration duration = const Duration(seconds: 2),
+    ToastPosition position = ToastPosition.bottomCenter,
+    ToastDirection direction = ToastDirection.ltr,
   }) {
     if (_isVisible) return;
 
@@ -70,6 +75,8 @@ abstract class Toast {
         iconColor: iconColor,
         image: image,
         showLeading: showLeading,
+        position: position,
+        direction: direction,
       ),
     );
 

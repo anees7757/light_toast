@@ -1,6 +1,6 @@
 name: light_toast
-description: "A lightweight Flutter package for displaying customizable toast messageswith support for icons, images, and configurable durations."
-version: 1.0.2
+description: "A lightweight Flutter package for displaying customizable toast messages with support for icons, images, configurable durations, 9 screen positions, and RTL/LTR direction."
+version: 1.1.0
 homepage: https://github.com/Anees7757/light_toast.git
 
 environment:
